@@ -7,7 +7,7 @@ import {Row,Col} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 const MarkAttendance = () => {
   const [rollNumber, setRollNumber] = useState('');
-  const [date, setDate] = useState('08-Aug-2023');
+  const [date, setDate] = useState('date1');
   const [attendanceStatus, setAttendanceStatus] = useState('Present');
   const [message, setMessage] = useState('');
 
@@ -19,13 +19,13 @@ const MarkAttendance = () => {
       date,
       attendanceStatus,
     };
-
+        console.log(date);
 
     try {
       const response = await axios.post('http://localhost:8081/markattendance', attendanceData);
         console.log(response.error);
       if (response.data === "Fail") {
-        setMessage('Error: Attendance already marked for this roll number on this date.');
+        setMessage('Error: Student attendance marked.');
       } 
       else {
         setMessage('Error: Attendance already marked for this roll number on this date.')
@@ -62,7 +62,14 @@ const MarkAttendance = () => {
         <label htmlFor="date">Date:</label>
         </Col>
         <Col xl={6}>
-        <input className='form-control  m-1' type='date' id="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required/>
+        <select className='form-control  m-1' id="date" name="date" value='date'
+        onChange={(e) => setDate(e.target.value)} required>
+          <option value="date1" > 08-08-2023</option>
+          <option value="date2" > 09-08-2023</option>
+          <option value="date3" > 10-08-2023</option>
+          <option value="date4" > 11-08-2023</option>
+          <option value="date5" > 12-08-2023</option>
+        </select>
         </Col>
         </Row>
     <Row>

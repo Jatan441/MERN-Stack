@@ -64,13 +64,10 @@ app.get('/home', function (req, res, next) {
 
 app.post('/markattendance', (req,res)=>{
     
-    const sql='INSERT INTO student_attendance(`rollNumber`, `date`,`attendanceStatus` ) VALUES (?)';
-    const values=[
-        req.body.rollNumber,
-        req.body.attendanceStatus,
-        req.body.date
-]
-        db.query(sql,[values], (err, data) =>{
+    const date= req.body.date
+   console.log(req.body.rollNumber,req.body.attendanceStatus);
+    const sql='INSERT INTO student_attendance(`rollNumber`, `'+date+'` ) VALUES ("'+req.body.rollNumber+'","'+req.body.attendanceStatus+'")';
+        db.query(sql, (err, data) =>{
             if(err){
                 res.json("Fail");
             }

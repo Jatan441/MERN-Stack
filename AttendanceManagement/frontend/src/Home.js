@@ -25,22 +25,34 @@ function Home() {
     <div className='   align-items-center bg-image vh-100 p-5'>
       <div className=' p-5'>
        <table className="table text-center border border-primary align-items" style={{width:'70%'}} >
+    <>
   <thead className="thead-dark table-primary">
     <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Roll Number</th>
-      <th scope="col">Attendance Status</th>
+      <th scope="col">Roll Number</th> 
+      <th scope="col">08-08-2023</th>
+      <th scope="col">09-08-2023</th>
+      <th scope="col">10-08-2023</th>
+      <th scope="col">11-08-2023</th> 
+      <th scope="col">12-08-2023</th>
     </tr>
   </thead>
   <tbody>
   {student.map((stu,i )=>(
-    <tr key={i}>  
-      <td>{stu.date}</td>
+      <>
+    <tr>  
       <td>{stu.rollNumber}</td>
-      <td>{stu.attendanceStatus}</td>
+     <td>{stu.date1}</td>
+     <td>{stu.date2}</td>
+     <td>{stu.date3}</td>
+     <td>{stu.date4}</td>
+     <td>{stu.date5}</td>
     </tr>
-    ))}
+     </> 
+     ))}
+
+  
   </tbody>
+    </>
 </table>
     </div>
 <div className='bg-white p-3 rounded w-25 align-items box '>
