@@ -61,15 +61,60 @@ app.get('/home', function (req, res, next) {
     })
   })
 
+app.post('/home/date', function (req, res, next) {
+        const date = req.body.date
+    db.query('SELECT rollNumber, '+date+' FROM `student_attendance`', function (err, rows) {
+      if (err) {
+        res.json(err);
+      }
+
+        res.send(rows)
+      
+    })
+  })
+
+  app.post('/markattendance/mark', (req,res)=>{
+    db.query('SELECT * FROM student_attendance Where rollNumber ="'+req.body.rollNumber+'"', function (err, data) {
+        if (err) {
+          res.json(err);
+        }
+
+        
+        if(data.length>0){
+            return res.json('FOUND')
+           }
+        
+           res.json('FAIL')
+        
+      })
+  })
+
+
 
 app.post('/markattendance', (req,res)=>{
     
     const date= req.body.date
-   console.log(req.body.rollNumber,req.body.attendanceStatus);
     const sql='INSERT INTO student_attendance(`rollNumber`, `'+date+'` ) VALUES ("'+req.body.rollNumber+'","'+req.body.attendanceStatus+'")';
         db.query(sql, (err, data) =>{
             if(err){
-                res.json("Fail");
+                res.json(err);
+            }
+            return res.json(data);
+        })
+    
+})
+
+
+
+app.patch('/markattendance/update', (req,res)=>{
+    
+    const date= req.body.date
+    const rollNumber= req.body.rollNumber
+    const attendanceStatus= req.body.attendanceStatus
+    const sql='UPDATE `student_attendance` SET `'+date+'`="'+attendanceStatus+'" WHERE `rollNumber`="'+rollNumber+'"';
+        db.query(sql, (err, data) =>{
+            if(err){
+                res.json(err);
             }
             return res.json(data);
         })

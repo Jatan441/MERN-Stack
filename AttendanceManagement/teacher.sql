@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2023 at 09:21 PM
+-- Generation Time: Aug 10, 2023 at 01:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -40,8 +40,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `name`, `email`, `password`) VALUES
 (1, 'Aishwaryasahu', 'aishwaryasahu321@gmail.com', 'Aishwarya2@sahu'),
-(2, 'Aishwarya', 'aishwaryasahu321@gmail.com', 'Aishwarya2@sahu'),
-(3, 'Jatan', 'jatan@gmail.com', '@jatan');
+(2, 'Aishwarya', 'aishwaryasahu321@gmail.com', 'Aishwarya2@sahu');
 
 -- --------------------------------------------------------
 
@@ -63,9 +62,12 @@ CREATE TABLE `student_attendance` (
 --
 
 INSERT INTO `student_attendance` (`rollNumber`, `date1`, `date2`, `date3`, `date4`, `date5`) VALUES
-('101', 'Present', '', '', '', ''),
-('102', 'Present', '', '', '', ''),
-('103', 'Present', '', '', '', '');
+('101', 'Absent', 'Present', 'Present', 'Present', 'Absent'),
+('102', 'Present', 'Present', 'Present', 'Absent', 'Present'),
+('103', 'Present', 'Absent', 'Present', 'Absent', 'Absent'),
+('104', 'Present', 'Absent', 'Present', 'Absent', 'Absent'),
+('105', 'Present', 'Present', 'Present', 'Present', 'Present'),
+('106', 'Absent', 'Present', '', '', '');
 
 --
 -- Indexes for dumped tables

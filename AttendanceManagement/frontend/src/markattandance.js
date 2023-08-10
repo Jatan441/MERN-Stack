@@ -19,21 +19,46 @@ const MarkAttendance = () => {
       date,
       attendanceStatus,
     };
-        console.log(date);
 
+     try {
+      const response = await axios.post('http://localhost:8081/markattendance/mark', attendanceData);
+          if(response.data === 'FOUND'){
+            updateData(attendanceData)
+          }
+          else{
+            postData(attendanceData)
+          }
+          
+    }
+        catch (error) {
+        console.log(error);
+    }
+        
+
+    
+  };
+
+  const postData = async (attendanceData)=>{
     try {
       const response = await axios.post('http://localhost:8081/markattendance', attendanceData);
-        console.log(response.error);
-      if (response.data === "Fail") {
-        setMessage('Error: Student attendance marked.');
-      } 
-      else {
-        setMessage('Error: Attendance already marked for this roll number on this date.')
-      }
+      
+        setMessage('Student attendance marked.');
+   
     } catch (error) {
         setMessage('Error: Failed to mark attendance.');
     }
-  };
+  }
+
+  const updateData = async (attendanceData)=>{
+    try {
+      const response = await axios.patch('http://localhost:8081/markattendance/update', attendanceData);
+
+        setMessage('Student attendance marked.');
+      
+    } catch (error) {
+        setMessage('Error: Failed to mark attendance.');
+    }
+  }
 
   return (
     <>
