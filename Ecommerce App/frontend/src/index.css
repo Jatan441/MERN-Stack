@@ -46,16 +46,16 @@ font-family: 'Poppins', sans-serif; */
   background: -webkit-linear-gradient(to right, #434343, #000000);
   background: linear-gradient(to right, #434343, #000000);
 }
-  .footer a{
-    text-decoration: none;
-    color: white;
-    padding: 10px;
-  }
+.footer a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+}
 
-  .footer a:hover {
-    color: #ffefba;
-    border-bottom: 1px #ffefba;
-  }
+.footer a:hover {
+  color: #ffefba;
+  border-bottom: 1px #ffefba;
+}
 
 /* --------------------------Register Page-------------------- */
 .form-container {
@@ -106,4 +106,9 @@ font-family: 'Poppins', sans-serif; */
   background: #000000;
   background: -webkit-linear-gradient(to right, #434343, #000000);
   background: linear-gradient(to right, #434343, #000000);
+}
+/* ================================================================== */
+.product-link {
+  text-decoration: none;
+  color: black;
 }

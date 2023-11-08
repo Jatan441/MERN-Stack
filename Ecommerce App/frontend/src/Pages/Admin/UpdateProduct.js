@@ -17,12 +17,12 @@ const UpdateProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [photo, setPhoto] = useState("");
   const [shipping, setShipping] = useState(false);
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
   const [id, setId] = useState("");
+
   const navigate = useNavigate();
   const params = useParams();
-
-  // get single product
+  //   get single product
   const getSingleProduct = async () => {
     try {
       const { data } = await axios.get(
@@ -33,18 +33,17 @@ const UpdateProduct = () => {
       setDescription(data.product.description);
       setPrice(data.product.price);
       setQuantity(data.product.quantity);
-      setPhoto(data.product.photo);
       setShipping(data.product.shipping);
-      setCategory(data.product.category);
+      setCategory(data.product.category._id);
+      setPhoto(data.product.photo);
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong in getting category");
+      toast.error("Something went wrong in getting a product");
     }
   };
-
   useEffect(() => {
     getSingleProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
   // get all category
@@ -70,19 +69,20 @@ const UpdateProduct = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const productData = new FormData();
+      const productData = new FormData(e.currentTarget);
       productData.append("name", name);
       productData.append("description", description);
       productData.append("quantity", quantity);
+      photo && productData.append("photo", photo);
       productData.append("category", category);
       productData.append("shipping", shipping);
       productData.append("price", price);
-      photo && productData.append("photo", photo);
-        console.log(productData);
+
       const { data } = await axios.put(
         `${process.env.REACT_APP_API}/api/v1/product/update-product/${id}`,
-        { productData }
+        productData
       );
+      console.log(data);
       if (data?.success) {
         toast.success(data?.message);
         navigate("/dashboard/admin/products");
@@ -91,29 +91,24 @@ const UpdateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong in getting updating product");
+      toast.error("Something went wrong in updating product");
     }
   };
 
-  //   delete product
-  //   const handleDelete = async () => {
-  //     try {
-  //       let answer = prompt("Are you sure want to delete this product");
-  //       if (!answer) return;
-  //       const { data } = await axios.delete(
-  //         `${process.env.REACT_APP_API}/api/v1/category/delete-product/${id}`
-  //       );
-  //       if (data.success) {
-  //         toast.success(data.message);
-  //         navigate("/dashboard/admin/products");
-  //       } else {
-  //         toast.error(data.message);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       toast.error("Something went wrong in deleting product");
-  //     }
-  //   };
+  const handleDelete = async () => {
+    try {
+      let answer = window.prompt("Are you sure want to delete this product ? ");
+      if (!answer) return;
+      const data = await axios.delete(
+        `${process.env.REACT_APP_API}/api/v1/product/delete-product/${id}`
+      );
+      toast.success(data?.message);
+      navigate("/dashboard/admin/products");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong in deleting product");
+    }
+  };
   return (
     <Layout title="Admin Dashboard - Create Product">
       <div className="container-fluid m-3 p-3">
@@ -131,10 +126,10 @@ const UpdateProduct = () => {
                   size="large"
                   showSearch
                   className="form-select mb-3"
-                  value={category?.name}
                   onChange={(value) => {
                     setCategory(value);
                   }}
+                  value={category}
                 >
                   {categories?.map((c) => (
                     <Option key={c._id} value={c._id}>
@@ -159,6 +154,7 @@ const UpdateProduct = () => {
                 <div className="mb-3">
                   {photo ? (
                     <div className="text-center">
+                      {/* eslint-disable-next-line */}
                       <img
                         src={URL.createObjectURL(photo)}
                         alt="Product Photo"
@@ -168,6 +164,7 @@ const UpdateProduct = () => {
                     </div>
                   ) : (
                     <div className="text-center">
+                      {/* eslint-disable-next-line */}
                       <img
                         src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${id}`}
                         alt="Product Photo"
@@ -228,9 +225,10 @@ const UpdateProduct = () => {
                     <Option value={true}>Yes</Option>
                   </Select>
                 </div>
-                <div className="mb-3 ">
-                  <button className=" btn btn-primary m-1">
-                    UPDATE PRODUCT
+                <div className="mb-3 d-flex gap-5">
+                  <button className=" btn btn-primary">UPDATE PRODUCT</button>
+                  <button className=" btn btn-danger" onClick={handleDelete}>
+                    DELETE PRODUCT
                   </button>
                 </div>
               </form>

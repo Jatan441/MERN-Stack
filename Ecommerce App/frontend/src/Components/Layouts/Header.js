@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-hot-toast";
+import SearchInput from "../Form/SearchInput";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
@@ -36,11 +37,12 @@ const Header = () => {
               🛒 Ecommerce App
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <SearchInput />
               <li className="nav-item">
                 <NavLink to="/home" className="nav-link ">
                   Home
                 </NavLink>
-              </li> 
+              </li>
               <li className="nav-item">
                 <NavLink to="/category" className="nav-link">
                   Category

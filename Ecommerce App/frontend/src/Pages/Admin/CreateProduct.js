@@ -113,6 +113,7 @@ const CreateProduct = () => {
                 <div className="mb-3">
                   {photo && (
                     <div className="text-center">
+                      {/* eslint-disable-next-line */}
                       <img
                         src={URL.createObjectURL(photo)}
                         alt="Product Photo"
