@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import ProductModel from "../Models/ProductModel.js";
+import CategoryModel from "../Models/CategoryModel.js";
 import fs from "fs";
 
 const createProductController = async (req, res) => {
@@ -266,6 +267,49 @@ const searchProductController = async (req, res) => {
   }
 };
 
+// similar product
+const relatedProductController = async (req, res) => {
+  try {
+    const { pid, cid } = req.params;
+    const products = await ProductModel.find({
+      _id: { $ne: pid },
+      category: cid,
+    })
+      .select("-photo")
+      .limit(3)
+      .populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send(400).send({
+      success: false,
+      message: "Error while getting related product",
+    });
+  }
+};
+
+// category wise product
+const productCategoryController = async (req, res) => {
+  try {
+    const category = await CategoryModel.findOne({ slug: req.params.slug });
+    const products = await ProductModel.find({ category }).populate("category");
+    res.status(200).send({
+      success: true,
+      products,
+      category,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "Error getting while getting category wise product",
+      error,
+    });
+  }
+};
 export {
   createProductController,
   getProductController,
@@ -277,4 +321,6 @@ export {
   productCountController,
   productListController,
   searchProductController,
+  relatedProductController,
+  productCategoryController,
 };

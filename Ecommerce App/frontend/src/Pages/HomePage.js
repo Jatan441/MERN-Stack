@@ -5,8 +5,11 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../Components/Prices";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
+  const [cart, setCart] = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -14,7 +17,6 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-
 
   const navigate = useNavigate();
 
@@ -118,7 +120,7 @@ const HomePage = () => {
   return (
     <Layout title="All Products - Best offers">
       <div className="row mt-3" style={{ width: "100%" }}>
-        <div className="col-md-2">
+        <div className="col-md-3">
           <h4 className="text-center">Filter By Category</h4>
           <div className="d-flex flex-column p-4">
             {categories?.map((c) => (
@@ -167,9 +169,19 @@ const HomePage = () => {
                     {p.description.substring(0, 60)}...
                   </p>
                   <p className="card-text">$ {p.price}</p>
-                  <button className="btn btn-primary ms-1" 
-                  onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                  <button className="btn btn-secondary ms-1">
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
+                  <button
+                    className="btn btn-secondary ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      toast.success("Item added to cart");
+                    }}
+                  >
                     Add to cart
                   </button>
                 </div>

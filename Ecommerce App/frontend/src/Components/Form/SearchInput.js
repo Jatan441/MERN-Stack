@@ -21,9 +21,12 @@ const SearchInput = () => {
 
   return (
     <>
-      <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+      <form
+        className="form-inline my-2 my-lg-0 d-flex m-4"
+        onSubmit={handleSubmit}
+      >
         <input
-          className="form-control mr-sm-2"
+          className="form-control mr-sm-2 "
           type="search"
           placeholder="Search"
           aria-label="Search"

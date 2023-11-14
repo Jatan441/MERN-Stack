@@ -20,11 +20,16 @@ import Products from "./Pages/Admin/Products";
 import UpdateProduct from "./Pages/Admin/UpdateProduct";
 import Search from "./Pages/Search";
 import ProductDetails from "./Pages/ProductDetails";
+import Categories from "./Pages/Categories";
+import CategoryProduct from "./Pages/CategoryProduct";
+import CartPage from "./Pages/CartPage";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/home" element={<HomePage />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/category/:slug" element={<CategoryProduct />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/search" element={<Search />} />
         <Route path="/dashboard" element={<PrivateRoute />}>
@@ -46,6 +51,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/policy" element={<Policy />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/*" element={<PageNotFound />} />
         {/*If upper route doesnt find then this route work  */}
       </Routes>
