@@ -180,6 +180,10 @@ const HomePage = () => {
                     onClick={() => {
                       setCart([...cart, p]);
                       toast.success("Item added to cart");
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
                     }}
                   >
                     Add to cart
