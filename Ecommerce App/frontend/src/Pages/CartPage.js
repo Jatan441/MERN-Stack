@@ -2,8 +2,10 @@ import React from "react";
 import Layout from "../Components/Layouts/Layout";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
+import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
 
@@ -53,7 +55,7 @@ const CartPage = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-7 m-2 ">
             {cart?.map((p) => (
               <div className="row card mb-2 p-2 flex-row">
                 <div className="col-md-4  ">
@@ -66,7 +68,7 @@ const CartPage = () => {
                     height={"100px"}
                   />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 ">
                   <p>{p.name}</p>
                   <p>{p.description.substring(0, 30)}</p>
                   <p>Price : {p.price}</p>
@@ -80,11 +82,47 @@ const CartPage = () => {
               </div>
             ))}
           </div>
-          <div className="col-md-4">
+          <div className="col-md-4 card m-2 d-flex flex-wrap">
             <h2>Cart Summary</h2>
             <p>Total | Checkout | Payment</p>
             <hr />
             <h4>Price : {totalPrice()}</h4>
+            {auth?.user?.address ? (
+              <div className="mb-3">
+                <h4>Current Address : </h4>
+                <h5>{auth?.user?.address}</h5>
+                <button
+                  className="btn btn-outline-warning"
+                  onClick={() => {
+                    navigate("/dashboard/user/profile");
+                  }}
+                >
+                  UPDATE ADDRESS
+                </button>
+              </div>
+            ) : (
+              <div className="mb-3">
+                {auth?.token ? (
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() => {
+                      navigate("/dashboard/user/profile");
+                    }}
+                  >
+                    UPDATE ADDRESS
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() => {
+                      navigate("/login", { state: "/cart" });
+                    }}
+                  >
+                    Please Login to checkout
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
