@@ -1,4 +1,5 @@
 import userModel from "../Models/userModel.js";
+import OrderModel from "../Models/OrderModel.js";
 import { comparePassword, hashPassword } from "../Helpers/authHelper.js";
 import Jwt from "jsonwebtoken";
 
@@ -202,10 +203,74 @@ const updateProfileController = async (req, res) => {
   }
 };
 
+// order
+const getOrderController = async (req, res) => {
+  try {
+    const order = await OrderModel.find({ buyer: req.user._id })
+      .populate("products", "-Photo")
+      .populate("buyer", "name");
+
+    return res.json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500),
+      send({
+        success: false,
+        message: "Error while getting orders",
+        error,
+      });
+  }
+};
+
+// order
+const getAllOrderController = async (req, res) => {
+  try {
+    const order = await OrderModel.find({})
+      .populate("products", "-Photo")
+      .populate("buyer", "name")
+      .sort({ createdAt: "-1" });
+
+    return res.json(order);
+  } catch (error) {
+    console.log(error);
+    res.status(500),
+      send({
+        success: false,
+        message: "Error while getting orders",
+        error,
+      });
+  }
+};
+
+// order status controller
+const orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await OrderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500),
+      send({
+        success: false,
+        message: "Error while updating order status",
+        error,
+      });
+  }
+};
+
 export {
   registerController,
   loginController,
   testController,
   forgotPasswordController,
   updateProfileController,
+  getOrderController,
+  getAllOrderController,
+  orderStatusController,
 };

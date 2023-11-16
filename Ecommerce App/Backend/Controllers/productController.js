@@ -1,7 +1,18 @@
 import slugify from "slugify";
 import ProductModel from "../Models/ProductModel.js";
 import CategoryModel from "../Models/CategoryModel.js";
+import OrderModel from "../Models/OrderModel.js";
 import fs from "fs";
+import braintree from "braintree";
+import dotEnv from "dotenv";
+dotEnv.config();
+// Payment gateway
+var gateway = new braintree.BraintreeGateway({
+  environment: braintree.Environment.Sandbox,
+  merchantId: process.env.BRAINTREE_MERCHANT_ID,
+  privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+  publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+});
 
 const createProductController = async (req, res) => {
   try {
@@ -310,6 +321,56 @@ const productCategoryController = async (req, res) => {
     });
   }
 };
+
+// payment gateway api
+// token
+const braintreeTokenController = async (req, res) => {
+  try {
+    gateway.clientToken.generate({}, function (err, response) {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(response);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// payment
+const braintreePaymentController = async (req, res) => {
+  try {
+    const { cart, nonce } = req.body;
+    let total = 0;
+    cart.map((i) => {
+      total += i.price;
+    });
+    let newTransaction = gateway.transaction.sale(
+      {
+        amount: total,
+        paymentMethodNonce: nonce,
+        options: {
+          submitForSettlement: true,
+        },
+      },
+      function (error, result) {
+        if (result) {
+          const order = new OrderModel({
+            products: cart,
+            payment: result,
+            buyer: req.user._id,
+          }).save();
+          res.json({ ok: true });
+        } else {
+          res.status(500).send(error);
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 export {
   createProductController,
   getProductController,
@@ -323,4 +384,6 @@ export {
   searchProductController,
   relatedProductController,
   productCategoryController,
+  braintreeTokenController,
+  braintreePaymentController,
 };

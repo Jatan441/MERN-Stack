@@ -9,7 +9,7 @@
     "server": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix ../frontend",
-     "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "braintree": "^3.19.0",
     "colors": "^1.4.0",
     "concurrently": "^8.2.1",
     "cors": "^2.8.5",
