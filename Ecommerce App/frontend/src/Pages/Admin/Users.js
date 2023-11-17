@@ -18,14 +18,15 @@ const Users = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_API}/api/v1/auth/profile`,
         { name, email, password, address, phone }
       );
-      if (res.data && res.data.success) {
-        toast.success(res.data.message);
+      if (data?.error) {
+        toast.error(data.message);
       } else {
-        toast.error(res.data.message);
+        setAuth({ ...auth, user: data?.updatedUser });
+         toast.success(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -69,6 +70,7 @@ const Users = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    disabled
                   />
                 </div>
 
@@ -107,7 +109,7 @@ const Users = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary">
-                  UPDATE USER
+                  UPDATE ADMIN
                 </button>
               </form>
             </div>

@@ -44,7 +44,7 @@ const Header = () => {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 ">
               <SearchInput />
               <li className="nav-item">
-                <NavLink to="/home" className="nav-link ">
+                <NavLink to="/" className="nav-link ">
                   Home
                 </NavLink>
               </li>
