@@ -23,6 +23,7 @@ const CategoryProduct = () => {
   };
   useEffect(() => {
     if (params?.slug) getProductByCat();
+    // eslint-disable-next-line
   }, [params?.slug]);
   return (
     <Layout>

@@ -6,7 +6,7 @@ import { useAuth } from "../../context/auth";
 import moment from "moment";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
 
   // get orders
   const getOrders = async () => {

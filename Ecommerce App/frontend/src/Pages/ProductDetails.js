@@ -12,6 +12,7 @@ const ProductDetails = () => {
   // get products
   useEffect(() => {
     if (params?.slug) getProduct();
+    // eslint-disable-next-line
   }, [params?.slug]);
 
   const getProduct = async () => {

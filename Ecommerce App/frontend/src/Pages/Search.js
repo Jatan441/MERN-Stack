@@ -3,7 +3,7 @@ import { useSearch } from "../context/search";
 import Layout from "../Components/Layouts/Layout";
 
 const Search = () => {
-  const [values, setValues] = useSearch();
+  const [values] = useSearch();
   return (
     <Layout title="Search results">
       <div className="container">

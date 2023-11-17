@@ -8,6 +8,7 @@ import { Select } from "antd";
 
 const AdminOrders = () => {
   const { Option } = Select;
+  // eslint-disable-next-line
   const [status, setStatus] = useState([
     "Not Process",
     "Processing",
@@ -15,9 +16,8 @@ const AdminOrders = () => {
     "Delivered",
     "Cancel",
   ]);
-  const [changeStatus, setChangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
 
   // get orders
   const getOrders = async () => {
@@ -38,6 +38,7 @@ const AdminOrders = () => {
   //   handleChange order status
   const handleChange = async (orderId, value) => {
     try {
+      // eslint-disable-next-line
       const { data } = await axios.put(
         `${process.env.REACT_APP_API}/api/v1/auth/order-status/${orderId}`,
         { status: value }
@@ -78,9 +79,7 @@ const AdminOrders = () => {
                         <td>
                           <Select
                             bordered={false}
-                            onChange={(value, orderId) =>
-                              handleChange(o?._id, value)
-                            }
+                            onChange={(value) => handleChange(o?._id, value)}
                             defaultValue={o?.status}
                           >
                             {status.map((s, i) => (

@@ -48,6 +48,7 @@ const HomePage = () => {
   useEffect(() => {
     if (page === 1) return;
     loadMore();
+    // eslint-disable-next-line
   }, [page]);
 
   // get all cat
@@ -86,6 +87,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
+    // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
   // filter by category
@@ -115,6 +117,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
+    // eslint-disable-next-line
   }, [checked, radio]);
 
   return (
