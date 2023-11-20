@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Components/Layouts/Layout";
-
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../Components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
+import Carousel1 from "../img/carousel1.jpg";
+import Carousel2 from "../img/carousel2.jpg";
+import Carousel3 from "../img/carousel3.jpg";
+import Carousel4 from "../img/carousel4.jpg";
 
 const HomePage = () => {
   const [cart, setCart] = useCart();
@@ -78,7 +81,8 @@ const HomePage = () => {
         `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
       );
       setLoading(false);
-      setProducts(data.products);
+      setProducts(data?.products);
+      console.log(data?.count);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -110,6 +114,7 @@ const HomePage = () => {
         { checked, radio }
       );
       setProducts(data?.products);
+      console.log("filter");
     } catch (error) {
       console.log(error);
     }
@@ -122,6 +127,41 @@ const HomePage = () => {
 
   return (
     <Layout title="All Products - Best offers">
+      <div id="carouselExample" className="carousel slide">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src={Carousel1} className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item">
+            <img src={Carousel2} className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item">
+            <img src={Carousel3} className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item">
+            <img src={Carousel4} className="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <button
+          className="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span className="carousel-control-prev-icon" aria-hidden="true" />
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button
+          className="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span className="carousel-control-next-icon" aria-hidden="true" />
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+
       <div className="row mt-3" style={{ width: "100%" }}>
         <div className="col-md-3">
           <h4 className="text-center">Filter By Category</h4>
@@ -158,39 +198,48 @@ const HomePage = () => {
 
         <div className="col-md-9">
           <h1 className="text-center">All Products</h1>
-          <div className="d-flex flex-wrap">
+          <div className="d-flex flex-wrap ">
             {products.map((p) => (
-              <div className="card m-2" style={{ width: "18rem" }}>
+              <div className="card m-2" style={{ width: "16.8dvw" }}>
                 <img
                   className="card-img-top"
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                   alt={p.className}
+                  height={"200px"}
+                  width={"200px"}
                 />
-                <div className="card-body">
-                  <h5 className="card-title">{p.name}</h5>
+                <div className="card-body bg-body-secondary">
+                  <div className="d-flex justify-content-between">
+                    <h5 className="card-title">{p.name}</h5>
+                    <p className="card-text">$ {p.price}</p>
+                  </div>
                   <p className="card-text">
-                    {p.description.substring(0, 60)}...
+                    {p.description.length < 60
+                      ? p.description
+                      : `${p.description.substring(0, 60)}...`}
                   </p>
-                  <p className="card-text">$ {p.price}</p>
-                  <button
-                    className="btn btn-primary ms-1"
-                    onClick={() => navigate(`/product/${p.slug}`)}
-                  >
-                    More Details
-                  </button>
-                  <button
-                    className="btn btn-secondary ms-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      toast.success("Item added to cart");
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                    }}
-                  >
-                    Add to cart
-                  </button>
+                  <div className="d-flex justify-content-between">
+                    <button
+                      className="btn btn-primary ms-1"
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                    >
+                      More Details
+                    </button>
+                    <button
+                      className="btn btn-outline-warning ms-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        toast.success("Item added to cart");
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                      }}
+                      title="Add to cart"
+                    >
+                      🛒
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

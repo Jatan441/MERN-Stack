@@ -36,7 +36,11 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div
+            className="collapse navbar-collapse"
+            id="navbarTogglerDemo01"
+            style={{ margin: "10px" }}
+          >
             <Link to="/" className="navbar-brand">
               {" "}
               🛒 Ecommerce App
@@ -86,17 +90,16 @@ const Header = () => {
               ) : (
                 <>
                   <li className="nav-item dropdown">
-                    <NavLink
+                    <Link
                       className="nav-link dropdown-toggle"
                       href="#"
                       id="navbarDropdown"
                       role="button"
                       data-bs-toggle="dropdown"
                       aria-haspopup="true"
-                      aria-expanded="false"
                     >
                       {auth?.user?.name}
-                    </NavLink>
+                    </Link>
                     <div
                       className="dropdown-menu"
                       aria-labelledby="navbarDropdown"
@@ -124,11 +127,21 @@ const Header = () => {
               )}
 
               <li className="nav-item">
-                <Badge count={cart?.length} showZero>
+                {cart?.length < 1 ? (
                   <NavLink to="/cart" className="nav-link">
                     Cart
                   </NavLink>
-                </Badge>
+                ) : (
+                  <Badge count={cart?.length} showZero>
+                    <NavLink
+                      to="/cart"
+                      className="nav-link"
+                      style={{ fontSize: "20px", marginTop: "3px" }}
+                    >
+                      Cart
+                    </NavLink>
+                  </Badge>
+                )}
               </li>
             </ul>
           </div>

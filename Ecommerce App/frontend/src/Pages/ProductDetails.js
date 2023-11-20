@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Layout from "../Components/Layouts/Layout";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useCart } from "../context/cart";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [cart, setCart] = useCart();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
 
@@ -38,21 +41,17 @@ const ProductDetails = () => {
     }
   };
 
-  // useEffect(() => {
-  //
-  // }, []);
   return (
     <Layout>
       <div className="container row mt-2" style={{ width: "100%" }}>
         <div className="col-md-6">
-          {" "}
-          <img
-            className="card-img-top"
-            src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
-            alt={product.name}
-            height="300"
-            width="250px"
-          />
+          <div>
+            <img
+              className="card-img-top"
+              src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`}
+              alt={product.name}
+            />
+          </div>
         </div>
 
         <div className="col-md-6 ">
@@ -68,24 +67,47 @@ const ProductDetails = () => {
       <div className="row " style={{ width: "100%" }}>
         <h4>Similar Products</h4>
         <div className="d-flex flex-wrap">
-          {relatedProducts.map((p) => (
-            <div className="card m-2" style={{ width: "18rem" }}>
+          {relatedProducts?.map((p) => (
+            <div className="card m-2" style={{ width: "16.8dvw" }}>
               <img
                 className="card-img-top"
                 src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                 alt={p.className}
+                height={"200px"}
+                width={"200px"}
               />
-              <div className="card-body">
-                <h5 className="card-title">{p.name}</h5>
-                <p className="card-text">{p.description.substring(0, 60)}...</p>
-                <p className="card-text">$ {p.price}</p>
-                <button
-                  className="btn btn-primary ms-1"
-                  onClick={() => navigate(`/product/${p.slug}`)}
-                >
-                  More Details
-                </button>
-                <button className="btn btn-secondary ms-1">Add to cart</button>
+              <div className="card-body bg-body-secondary">
+                <div className="d-flex justify-content-between">
+                  <h5 className="card-title">{p.name}</h5>
+                  <p className="card-text">$ {p.price}</p>
+                </div>
+                <p className="card-text">
+                  {p.description.length < 60
+                    ? p.description
+                    : `${p.description.substring(0, 60)}...`}
+                </p>
+                <div className="d-flex justify-content-between">
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product/${p.slug}`)}
+                  >
+                    More Details
+                  </button>
+                  <button
+                    className="btn btn-outline-warning ms-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      toast.success("Item added to cart");
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                    }}
+                    title="Add to cart"
+                  >
+                    🛒
+                  </button>
+                </div>
               </div>
             </div>
           ))}

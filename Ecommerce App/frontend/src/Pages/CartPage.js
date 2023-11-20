@@ -84,7 +84,7 @@ const CartPage = () => {
         <div className="row">
           <div className="col-md-12">
             <h1 className="text-center p-2 mb-1">{`Hello ${
-              auth?.token && auth?.user?.name
+              auth?.token ? auth?.user?.name : "Guest"
             }`}</h1>
 
             <h4 className="text-center">
@@ -100,14 +100,11 @@ const CartPage = () => {
           <div className="col-md-7 m-2 ">
             {cart?.map((p) => (
               <div className="row card mb-2 p-2 flex-row">
-                <div className="col-md-4  ">
-                  {" "}
+                <div className="col-md-3  ">
                   <img
                     className="card-img-top"
                     src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                     alt={p.className}
-                    width={"100px"}
-                    height={"100px"}
                   />
                 </div>
                 <div className="col-md-4 ">

@@ -235,7 +235,7 @@ const productCountController = async (req, res) => {
 // product list based on page
 const productListController = async (req, res) => {
   try {
-    const perPage = 6;
+    const perPage = 8;
     const page = req.params.page ? req.params.page : 1;
     const products = await ProductModel.find({})
       .select("-photo")
@@ -246,6 +246,7 @@ const productListController = async (req, res) => {
     res.status(200).send({
       success: true,
       products,
+      count: products.length,
     });
   } catch (error) {
     console.log(error);

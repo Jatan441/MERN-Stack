@@ -42,11 +42,13 @@ const Products = () => {
                   key={p._id}
                   className="product-link"
                 >
-                  <div className="card m-2" style={{ width: "18rem" }}>
+                  <div className="card m-2" style={{ width: "16dvw" }}>
                     <img
                       className="card-img-top"
                       src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                       alt={p.className}
+                      height={"200px"}
+                      width={"200px"}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{p.name}</h5>
