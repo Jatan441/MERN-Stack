@@ -82,7 +82,6 @@ const HomePage = () => {
       );
       setLoading(false);
       setProducts(data?.products);
-      console.log(data?.count);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -114,7 +113,6 @@ const HomePage = () => {
         { checked, radio }
       );
       setProducts(data?.products);
-      console.log("filter");
     } catch (error) {
       console.log(error);
     }
