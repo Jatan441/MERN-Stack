@@ -1,1 +1,1 @@
-Deployed Link :- https://jatan441-mern-ecommerce-app.netlify.app/
+Deployed Link :- https://ecommerce-app-jatan.vercel.app/
