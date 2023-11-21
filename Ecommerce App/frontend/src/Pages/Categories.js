@@ -8,11 +8,22 @@ const Categories = () => {
   return (
     <Layout title={"All Categories"}>
       <div className="container">
-        <div className="row">
+        <div className="row p-5 d-flex flex-wrap align-self-center">
           {categories.map((c) => (
-            <div className="col-md-6 mt-5 mb-3 gx-3 gy-3">
-              <Link to={`/category/${c.slug}`} className="btn btn-primary">
-                {c.name}
+            <div className="col-md-4 mt-5 text-center">
+              <Link
+                to={`/category/${c.slug}`}
+                style={{ textDecoration: "none" }}
+              >
+                <div
+                  className="btn btn-dark d-flex justify-content-center align-items-center"
+                  style={{
+                    height: "200px",
+                    width: "200px",
+                  }}
+                >
+                  {c.name}
+                </div>
               </Link>
             </div>
           ))}
