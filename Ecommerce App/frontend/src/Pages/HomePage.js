@@ -125,39 +125,25 @@ const HomePage = () => {
 
   return (
     <Layout title="All Products - Best offers">
-      <div id="carouselExample" className="carousel slide">
+      <div
+        id="carouselExampleSlidesOnly"
+        className="carousel slide"
+        data-bs-ride="carousel"
+      >
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={Carousel1} className="d-block w-100" alt="..." />
+            <img src={Carousel2} className="d-block w-100" alt="carousel-img" />
           </div>
           <div className="carousel-item">
-            <img src={Carousel2} className="d-block w-100" alt="..." />
+            <img src={Carousel1} className="d-block w-100" alt="carousel-img" />
           </div>
           <div className="carousel-item">
-            <img src={Carousel3} className="d-block w-100" alt="..." />
+            <img src={Carousel3} className="d-block w-100" alt="carousel-img" />
           </div>
           <div className="carousel-item">
-            <img src={Carousel4} className="d-block w-100" alt="..." />
+            <img src={Carousel4} className="d-block w-100" alt="carousel-img" />
           </div>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon" aria-hidden="true" />
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon" aria-hidden="true" />
-          <span className="visually-hidden">Next</span>
-        </button>
       </div>
 
       <div className="row mt-3" style={{ width: "100%" }}>
@@ -194,11 +180,11 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="col-md-9">
-          <h1 className="text-center">All Products</h1>
-          <div className="d-flex flex-wrap ">
+        <div className="col-md-9 ">
+          {/* <h1 className="text-center">All Products</h1> */}
+          <div className="d-flex flex-wrap flex-row">
             {products.map((p) => (
-              <div className="card m-2" style={{ width: "16.8dvw" }}>
+              <div className="card m-2" style={{ width: "230px" }}>
                 <img
                   className="card-img-top"
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}

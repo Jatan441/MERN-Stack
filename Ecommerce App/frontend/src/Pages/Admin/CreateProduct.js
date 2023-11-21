@@ -71,13 +71,13 @@ const CreateProduct = () => {
 
   return (
     <Layout title="Admin Dashboard - Create Product">
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
-            <h1>Create Product</h1>
+          <div className="col-md-9 mt-3">
+            <h1 className="text-center ">Create Product</h1>
             <div className="m-1 w-75">
               <form onSubmit={handleCreate}>
                 <Select
@@ -96,7 +96,7 @@ const CreateProduct = () => {
                     </Option>
                   ))}
                 </Select>
-                <div className="mb-3 w-100 ">
+                <div className="mb-3 ">
                   <label
                     htmlFor="upload image"
                     className="btn btn-outline-secondary col-md-12"

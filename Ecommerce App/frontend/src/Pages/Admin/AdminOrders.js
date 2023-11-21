@@ -50,19 +50,19 @@ const AdminOrders = () => {
   };
   return (
     <Layout title="Admin Dashboard - All Orders">
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
 
-          <div className="col-md-9">
+          <div className="col-md-9 mt-3">
             <h1 className="text-center">All Orders</h1>
 
             {orders?.map((o, i) => {
               return (
-                <div className="border shadow">
-                  <table className="table">
+                <div className="border shadow" style={{ fontSize: "1.5dvw" }}>
+                  <table className="table" style={{ fontSize: "1.5dvw" }}>
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -78,12 +78,17 @@ const AdminOrders = () => {
                         <td>{i + 1}</td>
                         <td>
                           <Select
+                            style={{ fontSize: "1.5dvw" }}
                             bordered={false}
                             onChange={(value) => handleChange(o?._id, value)}
                             defaultValue={o?.status}
                           >
                             {status.map((s, i) => (
-                              <Option key={i} value={s}>
+                              <Option
+                                key={i}
+                                value={s}
+                                style={{ fontSize: "1.5dvw" }}
+                              >
                                 {s}
                               </Option>
                             ))}
@@ -92,30 +97,29 @@ const AdminOrders = () => {
                         <td>{o?.buyer?.name}</td>
                         <td>{moment(o?.createdAt).fromNow()}</td>
                         <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                        <td>{o?.products?.lengtd}</td>
+                        <td>{o?.products?.length}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <div className="container">
+                  <div className="d-flex flex-wrap flex-row m-3">
                     {o?.products?.map((p) => (
-                      <div className="row card mb-2 p-2 flex-row">
-                        <div className="col-md-4  ">
-                          {" "}
+                      <div className=" card mb-2 p-2 m-2">
+                        
                           <img
                             className="card-img-top"
                             src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                             alt={p.className}
-                            width={"100px"}
-                            height={"100px"}
+                          width={'100px'}
+                          height={'100px'}
                           />
-                        </div>
-                        <div className="col-md-4 ">
+                        
+                        <div className="card-body">
                           <p>{p.name}</p>
                           <p>{p.description.substring(0, 30)}</p>
                           <p>Price : {p.price}</p>
                         </div>
                       </div>
-                    ))}{" "}
+                    ))}
                   </div>
                 </div>
               );

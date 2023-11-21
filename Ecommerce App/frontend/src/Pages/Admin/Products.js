@@ -28,21 +28,21 @@ const Products = () => {
   }, []);
   return (
     <Layout title="Admin Dashboard - All Products List">
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 mt-3">
             <h1 className="text-center ">All Products List</h1>
-            <div className="d-flex flex-wrap">
+            <div className="d-flex flex-wrap  flex-row ">
               {products.map((p) => (
                 <Link
                   to={`/dashboard/admin/product/${p.slug}`}
                   key={p._id}
                   className="product-link"
                 >
-                  <div className="card m-2" style={{ width: "16dvw" }}>
+                  <div className="card m-2" style={{ width: "200px" }}>
                     <img
                       className="card-img-top"
                       src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}

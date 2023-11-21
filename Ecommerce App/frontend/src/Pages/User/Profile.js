@@ -15,7 +15,7 @@ const Profile = () => {
 
   // handle submit
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     try {
       const { data } = await axios.put(
@@ -41,12 +41,12 @@ const Profile = () => {
   }, [auth?.user]);
   return (
     <Layout title="Dashboard - Your Profile">
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 ">
             <div className="form-container">
               <form onSubmit={handleSubmit}>
                 <h1 className="title">USER FORM</h1>

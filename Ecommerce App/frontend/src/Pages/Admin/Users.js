@@ -42,12 +42,12 @@ const Users = () => {
   }, [auth?.user]);
   return (
     <Layout title="Admin Dashboard - All Users">
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid mt-3 p-3">
         <div className="row">
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9 mt-3">
             <div className="form-container">
               <form onSubmit={handleSubmit}>
                 <h1 className="title">ADMIN FORM</h1>

@@ -27,17 +27,20 @@ const Orders = () => {
   return (
     <>
       <Layout title="Dashboard - Your Orders">
-        <div className="container-fluid m-3 p-3">
+        <div className="container-fluid mt-3 p-3">
           <div className="row">
             <div className="col-md-3">
               <UserMenu />
             </div>
-            <div className="col-md-9">
+            <div className="col-md-7 d-flex flex-column flex-wrap">
               <h1 className="text-center">All Orders</h1>
               {orders?.map((o, i) => {
                 return (
                   <div className="border shadow">
-                    <table className="table">
+                    <table
+                      className="table"
+                      style={{  fontSize: "1.5dvw" }}
+                    >
                       <thead>
                         <tr>
                           <th scope="col">#</th>
@@ -55,7 +58,7 @@ const Orders = () => {
                           <td>{o?.buyer?.name}</td>
                           <td>{moment(o?.createdAt).fromNow()}</td>
                           <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                          <td>{o?.products?.lengtd}</td>
+                          <td>{o?.products?.length}</td>
                         </tr>
                       </tbody>
                     </table>

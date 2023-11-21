@@ -19,9 +19,9 @@ const Search = () => {
               ? "No Products Found"
               : `Found ${values?.results.length}`}
           </h6>
-          <div className="d-flex flex-wrap mt-4">
+          <div className="d-flex flex-wrap mt-4  flex-row">
             {values?.results?.map((p) => (
-              <div className="card m-2" style={{ width: "16.8dvw" }}>
+              <div className="card m-2" style={{ width: "230px" }}>
                 <img
                   className="card-img-top"
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}

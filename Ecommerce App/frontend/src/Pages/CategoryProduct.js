@@ -34,9 +34,9 @@ const CategoryProduct = () => {
         <h4 className="text-canter">{category?.name}</h4>
         <h6 className="text-canter">{products.length} result found</h6>
         <div className="row">
-          <div className="d-flex flex-wrap mb-5">
+          <div className="d-flex flex-wrap mb-5  flex-row">
             {products.map((p) => (
-              <div className="card m-2" style={{ width: "16.8dvw" }}>
+              <div className="card m-2" style={{ width: "230px" }}>
                 <img
                   className="card-img-top"
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}

@@ -96,7 +96,7 @@ const CartPage = () => {
             </h4>
           </div>
         </div>
-        <div className="row">
+        <div className="row p-2 d-flex justify-content-around">
           <div className="col-md-7 m-2 ">
             {cart?.map((p) => (
               <div className="row card mb-2 p-2 flex-row">
@@ -177,7 +177,7 @@ const CartPage = () => {
                     onInstance={(instance) => setInstance(instance)}
                   />
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-primary mb-2"
                     onClick={handlePayment}
                     disabled={loading || !instance || !auth?.user?.address}
                   >
